@@ -5,23 +5,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t rallycoding/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t priya/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true rallycoding/react-test npm test
+  - docker run -e CI=true priya/react-test npm test
 
 after_success:
-  - docker build -t rallycoding/multi-client ./client
-  - docker build -t rallycoding/multi-nginx ./nginx
-  - docker build -t rallycoding/multi-server ./server
-  - docker build -t rallycoding/multi-worker ./worker
+  - docker build -t priya/multi-client ./client
+  - docker build -t priya/multi-nginx ./nginx
+  - docker build -t priya/multi-server ./server
+  - docker build -t priya/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push rallycoding/multi-client
-  - docker push rallycoding/multi-nginx
-  - docker push rallycoding/multi-server
-  - docker push rallycoding/multi-worker
+  - docker push priya/multi-client
+  - docker push priya/multi-nginx
+  - docker push priya/multi-server
+  - docker push priya/multi-worker
 
 deploy:
   provider: elasticbeanstalk

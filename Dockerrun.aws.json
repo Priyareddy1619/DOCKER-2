@@ -1,0 +1,43 @@
+{
+
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions" : [
+        {
+            "name": "client",
+            "image":"priya/multi-client",
+            "hostname" :"client",
+            "essential" : true
+        },
+        {
+            "name":"server",
+            "image":"priya/multi-server",
+            "hostname":"api",
+            "essential":false
+
+        },
+        {
+            "name":"worker",
+            "image":"priya/multi-worker",
+            "hostname":"worker",
+            "essential":false
+
+        },
+        {
+            "name":"nginx",
+            "image":"priya/multi-nginx",
+            "hostname":"nginx",
+            "essential":true,
+            "portMappings": [
+                {
+                "hostPort": 80,
+                "containerPort": 80
+                }
+            ],
+            "links" :["client","server"]
+
+        }
+
+        
+        
+    ]
+}
